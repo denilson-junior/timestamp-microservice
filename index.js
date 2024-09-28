@@ -8,6 +8,10 @@ var app = express();
 
 // imports
 import { dateTimeToUNIX, dateToUTC } from "./helpers.js";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC 
@@ -32,6 +36,7 @@ app.get("/api/hello", function (req, res) {
 // endpoint para formatação de data
 app.get("/api/:date?", function (req, res) {
     const { date } = req.params;
+    // verificar se data tem formato correto
 
     if (!date) {
         res.json({unix: dateTimeToUNIX(new Date().getTime()), utc: dateToUTC(new Date().getTime())})
